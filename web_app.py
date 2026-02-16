@@ -6,6 +6,11 @@ import pathlib
 from ultralytics import YOLO
 from logic import calculate_niu
 
+# === 1. 页面配置 ===
+st.set_page_config(page_title="高级斗牛神器", page_icon="🐮")
+st.title("🐮 高级斗牛 AI (含黑杰/五公/3变6)")
+st.write("请拍摄 5 张扑克牌，支持特殊牌型识别！")
+
 # --- 核心修复：解决跨系统路径兼容性问题 ---
 temp = pathlib.PosixPath
 pathlib.WindowsPath = pathlib.PosixPath
