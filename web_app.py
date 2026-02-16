@@ -10,7 +10,7 @@ st.title("🐮 高级斗牛 AI (含黑杰/五公/3变6)")
 st.write("请拍摄 5 张扑克牌，支持特殊牌型识别！")
 
 # === 2. 加载模型 ===
-model_path = 'douniu_app/playing_cards.pt'
+model_path = 'playing_cards.pt'
 
 @st.cache_resource
 def load_model():
