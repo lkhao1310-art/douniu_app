@@ -4,6 +4,7 @@ import numpy as np
 import os
 import pathlib
 from ultralytics import YOLO
+from logic import calculate_niu
 
 # --- 核心修复：解决跨系统路径兼容性问题 ---
 temp = pathlib.PosixPath
