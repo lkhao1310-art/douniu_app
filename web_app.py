@@ -1,25 +1,32 @@
 import streamlit as st
 import cv2
 import numpy as np
+import os
+import pathlib
 from ultralytics import YOLO
-from logic import calculate_niu # 导入你的新逻辑
 
-# === 1. 页面配置 ===
-st.set_page_config(page_title="高级斗牛神器", page_icon="🐮")
-st.title("🐮 高级斗牛 AI (含黑杰/五公/3变6)")
-st.write("请拍摄 5 张扑克牌，支持特殊牌型识别！")
-
-# === 2. 加载模型 ===
-model_path = '/Users/keathao/Desktop/shopping-list-project-files/niuniu/douniu_app/playing_cards.pt'
+# --- 核心修复：解决跨系统路径兼容性问题 ---
+temp = pathlib.PosixPath
+pathlib.WindowsPath = pathlib.PosixPath
+# ---------------------------------------
 
 @st.cache_resource
 def load_model():
+    # 自动找到当前文件旁边的 playing_cards.pt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(current_dir, "playing_cards.pt")
+    
+    # 检查文件到底在不在（为了让你放心）
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"文件真的不存在: {model_path}")
+        
     return YOLO(model_path)
 
 try:
     model = load_model()
+    # st.success("模型加载成功！") # 测试成功后可以把这行删掉
 except Exception as e:
-    st.error(f"❌ 找不到模型文件！请确认 {model_path} 就在旁边。")
+    st.error(f"模型加载严重错误！详细原因: {e}")
     st.stop()
 
 # 这里的字典只用于在图片上画数字，不参与核心逻辑计算
