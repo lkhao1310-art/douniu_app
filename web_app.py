@@ -96,34 +96,12 @@ if img_file is not None:
         
         # 1. 显示大标题结果
         hex_color = '#%02x%02x%02x' % color_rgb
-    st.markdown("""
-    <style>
-    /* 1. 覆盖所有可能的背景容器 */
-    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-        background: linear-gradient(180deg, #8B0000 0%, #B22222 60%, #FFD700 100%) !important;
-        background-attachment: fixed !important;
-        background-size: cover !important;
-    }
-    
-    /* 2. 让顶部工具栏变成透明，不要白色条 */
-    [data-testid="stHeader"] {
-        background-color: rgba(0,0,0,0) !important;
-    }
-
-    /* 3. 全局文字变白 (除了我们在卡片里特别指定的) */
-    h1, h2, h3, h4, h5, h6, p, label, .stMarkdown, .stText {
-        color: #FFFFFF !important;
-    }
-    
-    /* 4. 按钮样式优化 (变成金色按钮) */
-    .stButton>button {
-        background-color: #FFD700 !important;
-        color: #8B0000 !important;
-        border: 2px solid #FFFFFF !important;
-        font-weight: bold !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
+        st.markdown(f"""
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h1 style="color: {hex_color}; font-size: 50px;">{result_text}</h1>
+            <h3 style="color: gray;">倍数: x{multi}</h3>
+        </div>
+        """, unsafe_allow_html=True)
 
     if multi > 1: st.balloons()
     
