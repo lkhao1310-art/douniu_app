@@ -109,7 +109,7 @@ if img_file is not None:
         st.info("👇 智能拆牌结果 👇")
         
         # --- 第一行：牛身 (3张) ---
-        st.markdown("### 🐮 牛身 (凑整)")
+        st.markdown("### 牛身 (凑整)")
         cols_body = st.columns(3)
         for i, card_code in enumerate(body_cards):
             cols_body[i].markdown(f"""
