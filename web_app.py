@@ -96,62 +96,62 @@ if img_file is not None:
         
         # 1. 显示大标题结果
         hex_color = '#%02x%02x%02x' % color_rgb
-        st.markdown(f"""
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h1 style="color: {hex_color}; font-size: 50px;">{result_text}</h1>
-            <h3 style="color: gray;">倍数: x{multi}</h3>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown(f"""
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h1 style="color: {hex_color}; font-size: 50px; text-shadow: 2px 2px 0px #000;">{result_text}</h1>
+        <h3 style="color: #FFD700;">倍数: x{multi}</h3> </div>
+    """, unsafe_allow_html=True)
 
-        if multi > 1: st.balloons()
+    if multi > 1: st.balloons()
+    
+    # 2. 如果有牛身分组，显示 3+2 布局
+    if len(body_cards) == 3 and len(head_cards) == 2:
+        st.info("👇 智能拆牌结果 👇")
         
-        # 2. 如果有牛身分组，显示 3+2 布局
-        if len(body_cards) == 3 and len(head_cards) == 2:
-            st.info("👇 拆牌结果 👇")
-            
-            # 第一行：牛身 (3张)
-            st.markdown("### 牛身 (总和为10的倍数)")
-            cols_body = st.columns(3) # 创建3列
-            for i, card_code in enumerate(body_cards):
-                # 在每一列显示一张牌的大字
-                cols_body[i].markdown(f"""
-                <div style="
-                    border: 2px solid #4CAF50; 
-                    border-radius: 10px; 
-                    padding: 20px; 
-                    text-align: center;
-                    background-color: #fff7e3;">
-                    <h2 style="color: #4f0700">{format_card_name(card_code)}</h2>
-                </div>
-                """, unsafe_allow_html=True)
-            
-            # 第二行：牛尾 (2张)
-            st.markdown("### 点数 (决定胜负)")
-            cols_head = st.columns(3) # 为了居中，我们还是开3列，只用中间两列，或者开2列
-            cols_head = st.columns(2) 
-            for i, card_code in enumerate(head_cards):
-                cols_head[i].markdown(f"""
-                <div style="
-                    border: 2px solid #FF5722; 
-                    border-radius: 10px; 
-                    padding: 20px; 
-                    text-align: center;
-                    background-color: #fff7e3;">
-                    <h2 style="color: #4f0700">{format_card_name(card_code)}</h2>
-                </div>
-                """, unsafe_allow_html=True)
+        # --- 第一行：牛身 (3张) ---
+        st.markdown("### 🐮 牛身 (凑整)")
+        cols_body = st.columns(3)
+        for i, card_code in enumerate(body_cards):
+            cols_body[i].markdown(f"""
+            <div style="
+                border: 2px solid #FFD700;           /* 金色边框 */
+                border-radius: 10px; 
+                padding: 15px; 
+                text-align: center;
+                background-color: rgba(255, 255, 255, 0.9); /* 半透明白色背景 */
+                box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                <h2 style="color: #333333; margin: 0;">{format_card_name(card_code)}</h2>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        # --- 第二行：牛尾 (2张) ---
+        st.markdown("### 🔥 决胜牌")
+        # 修正：直接开2列，去掉原本多余的 cols_head = st.columns(3)
+        cols_head = st.columns(2) 
+        
+        for i, card_code in enumerate(head_cards):
+            # 获取花色决定颜色 (红桃/方块用红，黑桃/梅花用黑)
+            display_text = format_card_name(card_code)
+            if "♥" in display_text or "♦" in display_text:
+                text_color = "#D32F2F" # 红色
+            else:
+                text_color = "#000000" # 黑色
 
-        elif len(body_cards) == 5:
-            # 五公或五小的情况
-            st.success(f"绝杀牌型！所有牌：{body_cards}")
-            
-        else:
-            # 无牛的情况
-            st.warning("没凑成牛，这是一把散牌。")
-            st.write(f"手牌: {unique_cards}")
+            cols_head[i].markdown(f"""
+            <div style="
+                border: 3px solid #FF5722; 
+                border-radius: 10px; 
+                padding: 15px; 
+                text-align: center;
+                background-color: #fff3e0;          /* 浅橙色背景 */
+                box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                <h2 style="color: {text_color}; margin: 0; font-weight: bold;">{display_text}</h2>
+            </div>
+            """, unsafe_allow_html=True)
 
-    elif len(unique_cards) == 0:
-        st.warning("⚠️ 没有检测到扑克牌。")
+    elif len(body_cards) == 5:
+        st.success(f"🧧 恭喜！绝杀牌型！所有牌：{body_cards}")
+        
     else:
-        st.warning(f"⚠️ 找到了 {len(unique_cards)} 张牌，需要 5 张。")
-        st.write(f"当前识别: {unique_cards}")
+        st.warning("💨 没凑成牛，这是一把散牌。")
+        st.write(f"手牌: {unique_cards}")
