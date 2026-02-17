@@ -8,7 +8,11 @@ from logic import calculate_niu
 
 # === 1. 页面配置 ===
 st.set_page_config(page_title="斗牛神器", page_icon="🐮")
-st.title("牛牛计算器 (含3变6)")
+st.markdown("""
+    <h1 style='text-align: center; color: #FFD700; text-shadow: 2px 2px 4px #000000;'>
+        牛牛计算器 (含3变6) 
+    </h1>
+    """, unsafe_allow_html=True)
 st.write("请拍摄 5 张扑克牌，支持特殊牌型识别！")
 
 # --- 核心修复：解决跨系统路径兼容性问题 ---
