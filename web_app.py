@@ -9,8 +9,16 @@ from logic import calculate_niu
 # === 1. 页面配置 ===
 st.set_page_config(page_title="斗牛神器", page_icon="🐮")
 st.markdown("""
-    <h1 style='text-align: center; color: #FFD700; text-shadow: 2px 2px 4px #000000;'>
-        牛牛计算器 (含3变6) 
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    
+    <h1 style='
+        text-align: center; 
+        color: #9c0e00; 
+        font-family: "Ma Shan Zheng", cursive; /* 使用毛笔字体 */
+        font-size: 60px;           /*这种字体通常要大一点才好看*/
+        text-shadow: 3px 3px 0px #8B0000;
+    '>
+        牛牛计算器 🧧
     </h1>
     """, unsafe_allow_html=True)
 st.write("请拍摄 5 张扑克牌，支持特殊牌型识别！")
