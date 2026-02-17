@@ -121,7 +121,7 @@ if img_file is not None:
                     padding: 20px; 
                     text-align: center;
                     background-color: #919191;">
-                    <h2>{format_card_name(card_code)}</h2>
+                    <h2 style="color: #ffe3e3">{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
             
@@ -137,7 +137,7 @@ if img_file is not None:
                     padding: 20px; 
                     text-align: center;
                     background-color: #919191;">
-                    <h2>{format_card_name(card_code)}</h2>
+                    <h2 style="color: #ffe3e3">{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
 
