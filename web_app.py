@@ -120,7 +120,7 @@ if img_file is not None:
                     border-radius: 10px; 
                     padding: 20px; 
                     text-align: center;
-                    background-color: #fff0c9;">
+                    background-color: #fff7e3;">
                     <h2 style="color: #919191">{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
@@ -136,7 +136,7 @@ if img_file is not None:
                     border-radius: 10px; 
                     padding: 20px; 
                     text-align: center;
-                    background-color: #fff0c9;">
+                    background-color: #fff7e3;">
                     <h2 style="color: #919191">{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
