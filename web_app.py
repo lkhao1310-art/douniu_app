@@ -100,38 +100,45 @@ if img_file is not None:
 
     st.image(img, channels="BGR", caption="识别结果")
 
-    # === 4. 调用新逻辑 ===
+    # === 4. 核心修复：自动去重逻辑 ===
     st.divider()
     
-    if len(detected_cards) == 5:
-        # 去重（防止同一张牌被识别两次）- 简单去重
-        detected_cards = list(set(detected_cards))
-        
-        if len(detected_cards) < 5:
-             st.warning(f"⚠️ 似乎有重复识别的牌，请调整角度再拍一张。目前有效牌: {detected_cards}")
-        else:
-            # 这里的 calculate_niu 现在返回 3 个值：文本，倍数，颜色
-            result_text, multi, color_rgb = calculate_niu(detected_cards)
-            
-            # 使用逻辑里返回的颜色来显示结果
-            # Streamlit 不支持直接自定义 text color，我们用 markdown 模拟
-            # color_rgb 是 (R, G, B)，我们需要转成 hex 字符串 (如 #FF0000)
-            hex_color = '#%02x%02x%02x' % color_rgb
-            
-            st.markdown(f"""
-            <div style="text-align: center;">
-                <h1 style="color: {hex_color}; font-size: 50px;">{result_text}</h1>
-                <h3 style="color: gray;">倍数: x{multi}</h3>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            # 如果是特殊牌型，放个气球
-            if multi > 1:
-                st.balloons()
-            
-            st.info(f"识别到的手牌代码: {detected_cards}")
+    # 🛠️ 修复步骤 1：去重 (De-duplication)
+    # 解释：set() 会自动把 ['10h', '10h', 'As'] 变成 {'10h', 'As'}，就把重复的删掉了
+    unique_cards = list(set(detected_cards))
+    
+    # 🛠️ 修复步骤 2：排序 (可选，为了好看)
+    # 这一步是为了让显示的列表顺序稳定，不会跳来跳去
+    unique_cards.sort()
 
-    elif len(detected_cards) == 0:
+    # === 5. 开始判断 ===
+    if len(unique_cards) == 5:
+        # 成功！只有 5 张不重复的牌
+        result_text, multi, color_rgb = calculate_niu(unique_cards)
+        
+        hex_color = '#%02x%02x%02x' % color_rgb
+        st.markdown(f"""
+        <div style="text-align: center;">
+            <h1 style="color: {hex_color}; font-size: 50px;">{result_text}</h1>
+            <h3 style="color: gray;">倍数: x{multi}</h3>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if multi > 1:
+            st.balloons()
+        
+        st.success(f"✅ 有效识别: {unique_cards}")
+
+    elif len(unique_cards) > 5:
+        # 如果去重后还是超过 5 张（比如真有 6 张牌，或者误识别了别的）
+        st.error(f"⚠️ 牌太多了！找到了 {len(unique_cards)} 张牌。")
+        st.write(f"识别列表: {unique_cards}")
+        st.write("请移走多余的牌，或调整角度。")
+
+    elif len(unique_cards) == 0:
         st.warning("⚠️ 没有检测到扑克牌。")
+        
     else:
-        st.warning(f"⚠️ 只找到了 {len(detected_cards)} 张牌，必须是 5 张。")
+        # 少于 5 张
+        st.warning(f"⚠️ 只找到了 {len(unique_cards)} 张牌，还差 {5 - len(unique_cards)} 张。")
+        st.write(f"当前识别: {unique_cards}")
