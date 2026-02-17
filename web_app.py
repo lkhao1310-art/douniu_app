@@ -107,10 +107,10 @@ if img_file is not None:
         
         # 2. 如果有牛身分组，显示 3+2 布局
         if len(body_cards) == 3 and len(head_cards) == 2:
-            st.info("👇 智能拆牌结果 👇")
+            st.info("👇 拆牌结果 👇")
             
             # 第一行：牛身 (3张)
-            st.markdown("### 🐂 牛身 (总和为10的倍数)")
+            st.markdown("### 牛身 (总和为10的倍数)")
             cols_body = st.columns(3) # 创建3列
             for i, card_code in enumerate(body_cards):
                 # 在每一列显示一张牌的大字
@@ -120,13 +120,13 @@ if img_file is not None:
                     border-radius: 10px; 
                     padding: 20px; 
                     text-align: center;
-                    background-color: #f0f2f6;">
+                    background-color: #4a4a4a;">
                     <h2>{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
             
             # 第二行：牛尾 (2张)
-            st.markdown("### 🎲 点数 (决定胜负)")
+            st.markdown("### 点数 (决定胜负)")
             cols_head = st.columns(3) # 为了居中，我们还是开3列，只用中间两列，或者开2列
             cols_head = st.columns(2) 
             for i, card_code in enumerate(head_cards):
@@ -136,7 +136,7 @@ if img_file is not None:
                     border-radius: 10px; 
                     padding: 20px; 
                     text-align: center;
-                    background-color: #fff3e0;">
+                    background-color: #4a4a4a;">
                     <h2>{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
