@@ -12,7 +12,7 @@ st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     
     <h1 style='
-        text-align: center; 
+        text-align: left; 
         color: #9c0e00; 
         font-family: "Ma Shan Zheng", cursive; /* 使用毛笔字体 */
         font-size: 60px;           /*这种字体通常要大一点才好看*/
