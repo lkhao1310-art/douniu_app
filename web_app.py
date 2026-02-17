@@ -16,7 +16,6 @@ st.markdown("""
         color: #9c0e00; 
         font-family: "Ma Shan Zheng", cursive; /* 使用毛笔字体 */
         font-size: 60px;           /*这种字体通常要大一点才好看*/
-        text-shadow: 3px 3px 0px #8B0000;
     '>
         牛牛计算器 🧧
     </h1>
