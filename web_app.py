@@ -120,8 +120,8 @@ if img_file is not None:
                     border-radius: 10px; 
                     padding: 20px; 
                     text-align: center;
-                    background-color: #919191;">
-                    <h2 style="color: #ffe3e3">{format_card_name(card_code)}</h2>
+                    background-color: #fff0c9;">
+                    <h2 style="color: #919191">{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
             
@@ -136,18 +136,18 @@ if img_file is not None:
                     border-radius: 10px; 
                     padding: 20px; 
                     text-align: center;
-                    background-color: #919191;">
-                    <h2 style="color: #ffe3e3">{format_card_name(card_code)}</h2>
+                    background-color: #fff0c9;">
+                    <h2 style="color: #919191">{format_card_name(card_code)}</h2>
                 </div>
                 """, unsafe_allow_html=True)
 
         elif len(body_cards) == 5:
             # 五公或五小的情况
-            st.success(f"👑 绝杀牌型！所有牌：{body_cards}")
+            st.success(f"绝杀牌型！所有牌：{body_cards}")
             
         else:
             # 无牛的情况
-            st.warning("💨 没凑成牛，这是一把散牌。")
+            st.warning("没凑成牛，这是一把散牌。")
             st.write(f"手牌: {unique_cards}")
 
     elif len(unique_cards) == 0:
