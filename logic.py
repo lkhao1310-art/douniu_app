@@ -118,12 +118,12 @@ def calculate_niu(card_codes_list):
                         current_score = 100
                         current_text = "SUPER NIU! (牛牛)"
                         current_multi = 1 
-                        current_color = (255, 0, 0)
+                        current_color = (79, 7, 0)
                     else:
                         current_score = 10 + niu_point
                         current_text = f"Niu {niu_point} (牛{niu_point})"
                         current_multi = 1
-                        current_color = (0, 255, 0)
+                        current_color = (79, 7, 0)
                 
                 # 更新最大值
                 if current_score > best_result[0]:
