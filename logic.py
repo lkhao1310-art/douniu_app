@@ -97,7 +97,7 @@ def calculate_niu(card_codes_list):
                 
                 if is_spade_A and has_face:
                     current_score = 500
-                    current_text = "Ngau Tonku! (黑杰)"
+                    current_text = "🧧Ngau Tonku! (黑杰)🧧"
                     current_multi = 5
                     current_color = (138, 43, 226)
                     
@@ -105,7 +105,7 @@ def calculate_niu(card_codes_list):
                 elif v4 == v5:
                     pair_val = v4
                     current_score = 300 + pair_val
-                    current_text = f"Double Ox {pair_val} (对子牛)"
+                    current_text = f"🧧Double Ox {pair_val} (对子牛)🧧"
                     current_multi = 3
                     current_color = (255, 215, 0)
                 
@@ -116,12 +116,12 @@ def calculate_niu(card_codes_list):
                     
                     if niu_point == 0:
                         current_score = 100
-                        current_text = "SUPER NIU! (牛牛)"
+                        current_text = "🧧🧧SUPER NIU! (牛牛)🧧🧧"
                         current_multi = 1 
                         current_color = (255, 139, 128)
                     else:
                         current_score = 10 + niu_point
-                        current_text = f"Niu {niu_point} (牛{niu_point})"
+                        current_text = f"🧧Niu {niu_point} (牛{niu_point})🧧"
                         current_multi = 1
                         current_color = (255, 139, 128)
                 
