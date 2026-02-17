@@ -48,25 +48,25 @@ def calculate_niu(card_codes_list):
     """
     # 如果传入的不是列表，或者长度不对，直接返回等待
     if not isinstance(card_codes_list, list) or len(card_codes_list) != 5:
-        return "Waiting...", 0, (200, 200, 200)
+        return "Waiting...", 0, (200, 200, 200), [], []
 
     # 1. 解析所有牌
     try:
         cards = [get_card_info(c) for c in card_codes_list]
     except Exception as e:
-        return f"Error: {str(e)}", 0, (255, 0, 0)
+        return f"Error: {str(e)}", 0, (255, 0, 0), [], []
     
     # --- 特殊牌型检测 (直接判断 5 张牌) ---
     
     # A. 五公 (Five Dukes): 全是 J, Q, K
     if all(c['is_face'] for c in cards):
-        return "FIVE DUKES! (五公)", 7, (255, 215, 0) # 金色
+        return "FIVE DUKES! (五公)", 7, (255, 215, 0), card_codes_list, [] # 金色
 
     # B. 五小 (Five Small): 全是 A, 2, 3, 4 且 总和 <= 10
     if all(c['rank'] in ['a', '2', '3', '4'] for c in cards):
         min_sum = sum(c['values'][0] for c in cards)
         if min_sum <= 10:
-            return "FIVE SMALL! (五小)", 6, (0, 255, 255) # 青色
+            return "FIVE SMALL! (五小)", 6, (0, 255, 255), card_codes_list, [] # 青色
 
     # --- 牛牛核心计算 (包含 3/6 变身) ---
     possibilities = []
@@ -87,13 +87,19 @@ def calculate_niu(card_codes_list):
             val3 = p_hand[combo[2]][1]
             
             if (val1 + val2 + val3) % 10 == 0:
-                # 找到了牛基！看剩下两张
-                remaining = [i for i in indices if i not in combo]
+                # === 找到了牛身！===
                 
+                # 获取这3张牌的原始代码
+                body_codes = [p_hand[i][0]['code'] for i in combo]
+                
+                remaining = [i for i in indices if i not in combo]
                 c4_obj = p_hand[remaining[0]][0]
                 v4 = p_hand[remaining[0]][1]
                 c5_obj = p_hand[remaining[1]][0]
                 v5 = p_hand[remaining[1]][1]
+                
+                # 获取这2张牌的原始代码
+                head_codes = [c4_obj['code'], c5_obj['code']]
                 
                 # === 判定剩下两张的牌型 ===
                 current_score = 0
